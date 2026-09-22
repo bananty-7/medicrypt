@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: medicrypt-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=development
+      - DATABASE_URL=sqlite:///./medicrypt.db
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-dev_only_change_me}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=60
+      - CORS_ORIGINS=http://localhost:5173
+    volumes:
+      - backend_storage:/app/storage
+      - backend_db:/app
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: medicrypt-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend_storage:
+  backend_db:
+
+# --- Optional: swap SQLite for Postgres in production ---
+# Add this service and change backend's DATABASE_URL to:
+#   postgresql+psycopg2://medicrypt:medicrypt@db:5432/medicrypt
+#
+# db:
+#   image: postgres:16-alpine
+#   environment:
+#     POSTGRES_USER: medicrypt
+#     POSTGRES_PASSWORD: medicrypt
+#     POSTGRES_DB: medicrypt
+#   volumes:
+#     - pg_data:/var/lib/postgresql/data
+#   ports:
+#     - "5432:5432"

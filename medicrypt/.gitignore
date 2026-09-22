@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Backend runtime data (NEVER commit real patient data or private keys)
+backend/medicrypt.db
+backend/storage/encrypted_images/*
+backend/storage/keys/*
+!backend/storage/encrypted_images/.gitkeep
+!backend/storage/keys/.gitkeep
+backend/.env
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
