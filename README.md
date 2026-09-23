@@ -10,8 +10,6 @@
 
 
 
-MediCrypt lets doctors upload medical images...
-
 MediCrypt lets doctors upload medical images (X-ray / CT / MRI) that are
 end-to-end encrypted, cryptographically signed, and shared with patients
 (and other doctors) under role-based access control, with every access
